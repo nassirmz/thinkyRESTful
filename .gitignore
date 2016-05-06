@@ -1,0 +1,5 @@
+#db
+rethinkdb_data
+
+#dependencies
+node_modules
