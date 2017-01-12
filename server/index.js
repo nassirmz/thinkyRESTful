@@ -15,6 +15,12 @@ app.get('/todos', function (req, res) {
       res.status(500).send(err);
     });
 });
+app.get('/todos/:id', function (req, res) {
+  Todo.get(req.params.id)
+    .then(function (result) {
+      res.send(result);
+    });
+});
 app.post('/todos', function (req, res) {
   Todo.save(req.body)
     .then(function (result) {
@@ -23,10 +29,11 @@ app.post('/todos', function (req, res) {
 });
 app.put('/todos/:id', function (req, res) {
   var todoID = req.params.id;
-  Todo.get(todoID).update(req.body).run()
-    .then(function (result) {
-      res.send(result);
-    });
+  Todo.filter({id: todoID})
+    .update(req.body)
+  .then(function (result) {
+    res.send(result);
+  });
 });
 
 var PORT = process.env.PORT || 3000;
